@@ -18,6 +18,22 @@ export class App extends Component {
   };
   filteredList = null;
 
+  componentDidUpdate() {
+    const serializedState = JSON.stringify(this.state.contacts);
+    localStorage.setItem('contacts', serializedState);
+    // const key = localStorage.getItem('contacts');
+    // console.log(key);
+  }
+  componentDidMount() {
+    const serializedState = JSON.parse(localStorage.getItem('contacts'));
+    // console.log(serializedState);
+    if (serializedState !== null) {
+      this.setState({
+        contacts: [...serializedState],
+      });
+    }
+  }
+
   handleSubmit = (e, name, number) => {
     e.preventDefault();
     if (
